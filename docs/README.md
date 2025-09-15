@@ -28,7 +28,7 @@ config:
       -
         title: No Principal Loss, LPs Feel More Secure
         icon: 🌐
-        details: On other platforms, when you provide liquidity, you easily lose money due to price fluctuations, which is called principal loss, also known as "impermanent loss". TTSWAP's mechanism can effectively avoid this problem, and your investment won't decrease.
+        details: On other platforms, when you provide liquidity, you easily lose money due to price fluctuations, which is called principal loss, also known as "impermanent loss". TTSWAP protocal can effectively avoid this problem, and your investment won't decrease.
       -
         title: Ultra-Low Trading Loss, Reduced by Over 70%
         icon: 🌱
@@ -47,7 +47,7 @@ config:
         link: document_en/community/introduce.html
         details: Everyone can participate. Users, referrers, gateways, liquidity providers, token operators, and ecosystem contributors can all receive a certain percentage of fee commissions.
       -
-        title: Every Investment Can Mine (TTS)
+        title: Every Investment Can Mint (TTS)
         icon: 💰
         details: When you invest tokens, the system automatically calculates based on your investment value and starts "secondary mining", earning additional TTS rewards.
       -
