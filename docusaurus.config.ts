@@ -7,11 +7,11 @@ import rehypeKatex from 'rehype-katex';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'TTSwap',
-  tagline: 'Trade & Invest crypto freely',
+  title: 'TTSwap Docs',
+  tagline:
+    'Constant Value AMM documentation — one-token-one-pool, zero-IL LP, six-way fees, X402 payments',
   favicon: 'img/favicon.ico',
-
-
+  titleDelimiter: '·',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -42,38 +42,104 @@ const config: Config = {
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
+  // Global <head> tags for Google / Bing SEO + social previews
+  // Per-page canonical URLs are emitted by Docusaurus; do not set a site-wide canonical here.
+  headTags: [
+    {
+      tagName: 'script',
+      attributes: {
+        type: 'application/ld+json',
+      },
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Organization',
+            '@id': 'https://ttswap.io/#organization',
+            name: 'TTSwap',
+            url: 'https://ttswap.io',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://docs.ttswap.io/img/logo.png',
+            },
+            sameAs: [
+              'https://x.com/ttswapfinance',
+              'https://t.me/ttswapfinance',
+              'https://discord.gg/XygqnmQgX3',
+              'https://github.com/ttswap-doc',
+            ],
+          },
+          {
+            '@type': 'WebSite',
+            '@id': 'https://docs.ttswap.io/#website',
+            name: 'TTSwap Docs',
+            url: 'https://docs.ttswap.io',
+            description:
+              'Official TTSWAP documentation: Constant Value AMM, one-token-one-pool, zero-IL LP, six-way fees, X402, and TTS tokenomics.',
+            publisher: { '@id': 'https://ttswap.io/#organization' },
+            inLanguage: ['en', 'zh-Hans'],
+          },
+        ],
+      }),
+    },
+  ],
+
   i18n: {
     defaultLocale: 'en',
-    // locales: ['en'],
     locales: ['en', 'zh'],
-    // localeConfigs: {
-    //   en: {
-    //     label: 'English',
-    //     direction: 'ltr',
-    //   },
-    //   zh: {
-    //     label: '中文',
-    //     direction: 'ltr',
-    //   },
-    // },
+    localeConfigs: {
+      en: {
+        label: 'English',
+        direction: 'ltr',
+        htmlLang: 'en',
+      },
+      zh: {
+        label: '中文',
+        direction: 'ltr',
+        htmlLang: 'zh-Hans',
+      },
+    },
   },
+
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {from: '/', to: '/documentation/'},
+        ],
+      },
+    ],
+  ],
+
+  themes: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        language: ['en', 'zh'],
+        docsRouteBasePath: '/',
+        indexBlog: false,
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+        searchBarShortcut: false,
+        searchBarShortcutHint: false,
+      },
+    ],
+  ],
 
   presets: [
     [
       '@docusaurus/preset-classic',
       {
         docs: {
+          routeBasePath: '/',
           sidebarPath: './sidebars.ts',
           path: 'docs',
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
-          // editUrl:
-          //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // includeCurrentVersion: true,
         },
+        pages: false,
         blog: {
           showReadingTime: true,
           feedOptions: {
@@ -96,12 +162,47 @@ const config: Config = {
           lastmod: 'date',
           changefreq: 'weekly',
           priority: 0.5,
-          ignorePatterns: ['/tags/**'],
+          ignorePatterns: [
+            '/tags/**',
+            '/search',
+            '/*/search',
+            '/**/*_bak*',
+            '/**/*bak*',
+          ],
           filename: 'sitemap.xml',
           createSitemapItems: async (params) => {
             const { defaultCreateSitemapItems, ...rest } = params;
             const items = await defaultCreateSitemapItems(rest);
-            return items.filter((item) => !item.url.includes('/page/'));
+            return items
+              .filter(
+                (item) =>
+                  !item.url.includes('/page/') &&
+                  !item.url.includes('/search') &&
+                  !item.url.includes('_bak') &&
+                  !item.url.endsWith('/blog'),
+              )
+              .map((item) => {
+                const path = item.url.replace('https://docs.ttswap.io', '');
+                // Boost primary documentation entry points for crawl priority
+                if (
+                  path === '/documentation' ||
+                  path === '/documentation/' ||
+                  path === '/zh/documentation' ||
+                  path === '/zh/documentation/'
+                ) {
+                  return { ...item, priority: 1.0, changefreq: 'daily' as const };
+                }
+                if (
+                  path.includes('/Get%20Started/') ||
+                  path.includes('/Get Started/') ||
+                  path.includes('/Trade/') ||
+                  path.includes('/Invest') ||
+                  path.includes('/Tokenomics/')
+                ) {
+                  return { ...item, priority: 0.8, changefreq: 'weekly' as const };
+                }
+                return item;
+              });
           },
         },
       } satisfies Preset.Options,
@@ -109,50 +210,85 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    docs: {
+      sidebar: {
+        hideable: true,
+        autoCollapseCategories: false,
+      },
+    },
+    tableOfContents: {
+      minHeadingLevel: 2,
+      maxHeadingLevel: 4,
+    },
+    // Open Graph / Twitter social card (absolute URL resolved from site url)
+    image: 'img/logo.png',
     colorMode: {
       defaultMode: 'light',
       disableSwitch: true,
       respectPrefersColorScheme: false,
     },
     metadata: [
-      { name: 'keywords', content: 'TTSwap, DEX, DeFi, Decentralized Exchange, Crypto Trading, AMM, Yield Farming, Liquidity Provider' },
-      { name: 'description', content: 'TTSwap is a next-generation decentralized exchange (DEX) offering secure trading, high liquidity efficiency, and community-driven governance.' },
+      {
+        name: 'description',
+        content:
+          'Official TTSWAP docs: Constant Value AMM (CV-AMM), one-token-one-pool, zero-impermanent-loss LP returns, six-way fee split, X402 payments, and TTS tokenomics.',
+      },
+      {
+        name: 'keywords',
+        content:
+          'TTSwap, TTSWAP, DEX, DeFi, Constant Value AMM, CV-AMM, Singleton, one-token-one-pool, zero impermanent loss, X402, PayFi, TTS, liquidity provider, buyGood, payGood',
+      },
+      { name: 'author', content: 'TTSwap' },
+      { name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
+      { name: 'googlebot', content: 'index, follow' },
+      { name: 'bingbot', content: 'index, follow' },
+      // Open Graph
+      { property: 'og:type', content: 'website' },
+      { property: 'og:site_name', content: 'TTSwap Docs' },
+      { property: 'og:locale', content: 'en' },
+      { property: 'og:locale:alternate', content: 'zh_CN' },
+      // Twitter / X
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:site', content: '@ttswapfinance' },
+      { name: 'twitter:creator', content: '@ttswapfinance' },
+      // Optional: paste verification codes from Search Console / Bing Webmaster after claiming the property
+      // { name: 'google-site-verification', content: 'YOUR_GOOGLE_VERIFICATION_CODE' },
+      // { name: 'msvalidate.01', content: 'YOUR_BING_VERIFICATION_CODE' },
     ],
     navbar: {
       title: 'TTSwap',
       logo: {
         alt: 'TTSwap Logo',
-        src: 'img/logo.png',  // 记得把 logo 放到 /static/img/tt_logo.png
+        src: 'img/logo.png',
+        href: '/documentation/',
       },
       items: [
         // 中间菜单
-        { to: '/', label: 'Home', position: 'left' },
-        {
-          label: 'Activity', position: 'left', items: [
-            { to: '/docs/articles/publicsale', label: 'Public Sale', },
-            // { to: '/docs/articles/tokenairdrop', label: 'Token Airdrop', },
-          ],
-        },
-        {
-          label: 'Knowledge', position: 'left', items: [
-           // { to: '/docs/knowledge/userdoc', label: 'User Doc', },
-            { to: '/docs/knowledge/tokeneconomic', label: 'Token Economic', },
-            { to: '/docs/knowledge/whitepaper', label: 'WhitePaper', },
-          ],
-        },
-        {
-          label: 'Join DAO', position: 'left', items: [
-            { to: '/docs/community/introduce', label: 'Allocate Commission By Role', },
-            { to: '/docs/community/ambassador', label: 'Be Ambassador', },
-            { to: '/docs/community/tokenoperator', label: 'Be Token Operator', },
-            { to: '/docs/community/gate', label: 'Be Service Provider', },
-            { to: '/docs/community/builder', label: 'Be Builder', },
-            { to: '/docs/community/liquidityprovider', label: 'Be Liquidityprovider', },
-            { to: '/docs/community/investor', label: 'Be Investor', },
-          ],
-        },
+        // { to: '/documentation/', label: 'Documentation', position: 'left' },
+        // {
+        //   label: 'Activity', position: 'left', items: [
+        //     { to: '/docs/articles/publicsale', label: 'Public Sale', },
+        //     // { to: '/docs/articles/tokenairdrop', label: 'Token Airdrop', },
+        //   ],
+        // },
+        // {
+        //   label: 'Knowledge', position: 'left', items: [
+        //    // { to: '/docs/knowledge/userdoc', label: 'User Doc', },
+        //     { to: '/docs/knowledge/tokeneconomic', label: 'Token Economic', },
+        //     { to: '/docs/knowledge/whitepaper', label: 'WhitePaper', },
+        //   ],
+        // },
+        // {
+        //   label: 'Join DAO', position: 'left', items: [
+        //     { to: '/docs/community/introduce', label: 'Allocate Commission By Role', },
+        //     { to: '/docs/community/ambassador', label: 'Be Ambassador', },
+        //     { to: '/docs/community/tokenoperator', label: 'Be Token Operator', },
+        //     { to: '/docs/community/gate', label: 'Be Service Provider', },
+        //     { to: '/docs/community/builder', label: 'Be Builder', },
+        //     { to: '/docs/community/liquidityprovider', label: 'Be Liquidityprovider', },
+        //     { to: '/docs/community/investor', label: 'Be Investor', },
+        //   ],
+        // },
 
         // 右侧社交图标
         {
@@ -243,6 +379,10 @@ const config: Config = {
     //   theme: prismThemes.github,
     //   darkTheme: prismThemes.dracula,
     // },
+    prism: {
+      theme: prismThemes.github,
+      darkTheme: prismThemes.github,
+    },
   } satisfies Preset.ThemeConfig,
 };
 

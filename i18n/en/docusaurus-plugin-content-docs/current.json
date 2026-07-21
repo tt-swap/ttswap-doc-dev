@@ -3,8 +3,24 @@
     "message": "Next",
     "description": "The label for version current"
   },
-  "sidebar.tutorialSidebar.category.Whitepaper": {
-    "message": "Whitepaper",
-    "description": "The label for category Whitepaper in sidebar tutorialSidebar"
+  "sidebar.guideSidebar.category.Get Started": {
+    "message": "Get Started",
+    "description": "The label for category Get Started in sidebar guideSidebar"
+  },
+  "sidebar.guideSidebar.category.Trade": {
+    "message": "Trade",
+    "description": "The label for category Trade in sidebar guideSidebar"
+  },
+  "sidebar.guideSidebar.category.Invest & Devest": {
+    "message": "Invest & Divest",
+    "description": "The label for category Invest & Devest in sidebar guideSidebar"
+  },
+  "sidebar.guideSidebar.category.Tokenomics": {
+    "message": "Tokenomics",
+    "description": "The label for category Tokenomics in sidebar guideSidebar"
+  },
+  "sidebar.guideSidebar.category.Community": {
+    "message": "Community",
+    "description": "The label for category Community in sidebar guideSidebar"
   }
 }

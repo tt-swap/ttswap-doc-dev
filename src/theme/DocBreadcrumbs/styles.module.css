@@ -1,0 +1,36 @@
+.breadcrumbsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.breadcrumbsActions {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.breadcrumbsRow :global(nav) {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0 !important;
+}
+
+.breadcrumbsRow :global(.breadcrumbs) {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .breadcrumbsRow {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .breadcrumbsActions {
+    margin-left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+}

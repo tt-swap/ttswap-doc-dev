@@ -1,0 +1,10 @@
+{
+  "label": "交易",
+  "key": "trade",
+  "position": 2,
+  "collapsed": false,
+  "link": {
+    "type": "doc",
+    "id": "documentation/Trade/Overview"
+  }
+}

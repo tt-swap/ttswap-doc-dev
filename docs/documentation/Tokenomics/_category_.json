@@ -1,0 +1,10 @@
+{
+  "label": "Tokenomics",
+  "key": "tokenomics",
+  "position": 4,
+  "collapsed": false,
+  "link": {
+    "type": "doc",
+    "id": "documentation/Tokenomics/Overview"
+  }
+}

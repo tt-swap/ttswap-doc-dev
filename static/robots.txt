@@ -1,5 +1,21 @@
+# https://docs.ttswap.io/robots.txt
+# Allow Googlebot and Bingbot to crawl documentation
+
+User-agent: Googlebot
+Allow: /
+Disallow: /search
+Disallow: /*/search
+
+User-agent: Bingbot
+Allow: /
+Disallow: /search
+Disallow: /*/search
+
 User-agent: *
 Allow: /
-Sitemap: https://ttswap.io/sitemap.xml
-Sitemap: https://ttswap.io/zh/sitemap.xml
+Disallow: /search
+Disallow: /*/search
 
+# Production sitemaps (en + zh)
+Sitemap: https://docs.ttswap.io/sitemap.xml
+Sitemap: https://docs.ttswap.io/zh/sitemap.xml

@@ -1,0 +1,77 @@
+/* Uniswap docs font — 仅文档页（html.docs-wrapper），不影响主页 */
+
+@font-face {
+  font-family: 'Basel Grotesk';
+  src:
+    url('https://cdn.developers.uniswap.org/assets/Basel-Grotesk-Book-BWJVv5hT.woff2') format('woff2'),
+    url('https://cdn.developers.uniswap.org/assets/Basel-Grotesk-Book-B9Qmt7Yc.woff') format('woff');
+  font-weight: 485;
+  font-style: normal;
+  font-display: swap;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@font-face {
+  font-family: 'Basel Grotesk';
+  src:
+    url('https://cdn.developers.uniswap.org/assets/Basel-Grotesk-Medium-D7noSrAU.woff2') format('woff2'),
+    url('https://cdn.developers.uniswap.org/assets/Basel-Grotesk-Medium-DLCDSyLV.woff') format('woff');
+  font-weight: 535;
+  font-style: normal;
+  font-display: swap;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html.docs-wrapper {
+  --ifm-font-family-base: 'Basel Grotesk', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ifm-font-family-monospace: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+  --ifm-heading-font-weight: 535;
+  font-family: var(--ifm-font-family-base);
+  font-weight: 485;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html.docs-wrapper .theme-doc-markdown,
+html.docs-wrapper .theme-doc-sidebar-menu,
+html.docs-wrapper .table-of-contents,
+html.docs-wrapper .breadcrumbs,
+html.docs-wrapper .pagination-nav,
+html.docs-wrapper .navbar,
+html.docs-wrapper .theme-doc-toc-desktop,
+html.docs-wrapper .footer {
+  font-family: var(--ifm-font-family-base);
+}
+
+html.docs-wrapper code,
+html.docs-wrapper pre {
+  font-family: var(--ifm-font-family-monospace);
+}
+
+html.docs-wrapper .theme-doc-markdown h1,
+html.docs-wrapper .theme-doc-markdown h2,
+html.docs-wrapper .theme-doc-markdown h3,
+html.docs-wrapper .theme-doc-markdown h4,
+html.docs-wrapper .theme-doc-markdown h5,
+html.docs-wrapper .theme-doc-markdown h6,
+html.docs-wrapper .theme-doc-sidebar-menu .menu__link--sublist,
+html.docs-wrapper .table-of-contents::before,
+html.docs-wrapper .navbar__title {
+  font-weight: 535;
+}
+
+html.docs-wrapper .theme-doc-markdown p,
+html.docs-wrapper .theme-doc-markdown li,
+html.docs-wrapper .theme-doc-sidebar-menu .menu__link,
+html.docs-wrapper .table-of-contents__link,
+html.docs-wrapper .breadcrumbs__link {
+  font-weight: 485;
+}
+
+html.docs-wrapper .theme-doc-sidebar-menu .theme-doc-sidebar-item-link .menu__link--active,
+html.docs-wrapper .table-of-contents__link--active {
+  font-weight: 535;
+}

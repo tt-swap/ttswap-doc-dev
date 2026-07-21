@@ -1,0 +1,10 @@
+{
+  "label": "Get Started",
+  "key": "get-started",
+  "position": 1,
+  "collapsed": false,
+  "link": {
+    "type": "doc",
+    "id": "documentation/Get Started/Overview"
+  }
+}

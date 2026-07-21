@@ -11,9 +11,7 @@ This documentation provides users with an understanding of TTSWAP's operational 
 
 ---
 
-import { ShareButton } from '@site/src/components/ShareButton';  
 
-<ShareButton />
 
 ## ✅ I. What is TTSWAP?
 TTSWAP is a decentralized token trading platform where anyone can quickly and safely exchange one token for another without relying on centralized exchanges.

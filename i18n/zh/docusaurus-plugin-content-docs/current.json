@@ -3,8 +3,24 @@
     "message": "Next",
     "description": "The label for version current"
   },
-  "sidebar.tutorialSidebar.category.Whitepaper": {
-    "message": "白皮书",
-    "description": "这是白皮书"
+  "sidebar.guideSidebar.category.Get Started": {
+    "message": "快速开始",
+    "description": "The label for category Get Started in sidebar guideSidebar"
+  },
+  "sidebar.guideSidebar.category.Trade": {
+    "message": "交易",
+    "description": "The label for category Trade in sidebar guideSidebar"
+  },
+  "sidebar.guideSidebar.category.Invest & Devest": {
+    "message": "投资与撤资",
+    "description": "The label for category Invest & Devest in sidebar guideSidebar"
+  },
+  "sidebar.guideSidebar.category.Tokenomics": {
+    "message": "代币经济",
+    "description": "The label for category Tokenomics in sidebar guideSidebar"
+  },
+  "sidebar.guideSidebar.category.Community": {
+    "message": "社区",
+    "description": "The label for category Community in sidebar guideSidebar"
   }
 }

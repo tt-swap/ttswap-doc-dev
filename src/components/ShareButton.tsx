@@ -7,9 +7,10 @@ import { getUsernameFromCookie, getCurrentUrlFromCookie, updateLaunchAppHref } f
 
 interface ShareButtonProps {
     walletAddress?: string;
+    inline?: boolean;
 }
 
-export function ShareButton({ walletAddress: propWalletAddress }: ShareButtonProps) {
+export function ShareButton({ walletAddress: propWalletAddress, inline = false }: ShareButtonProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [walletAddress, setWalletAddress] = useState(propWalletAddress || '');
     const [shortUrl, setShortUrl] = useState('');
@@ -158,19 +159,25 @@ export function ShareButton({ walletAddress: propWalletAddress }: ShareButtonPro
         // }
     };
 
+    const triggerButton = (
+        <Button
+            variant="outline"
+            className={inline ? 'share-button share-button--inline' : 'share-button'}
+            onClick={() => setIsOpen(true)}
+        >
+            <Share2 style={{ width: '1rem', height: '1rem' }} />
+            {translations.share}
+        </Button>
+    );
+
     if (isOpen) {
         return (
             <>
-                <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end' }}>
-                    <Button
-                        variant="outline"
-                        className='share-button'
-                        onClick={() => setIsOpen(true)}
-                    >
-                        <Share2 style={{ width: '1rem', height: '1rem' }} />
-                        {translations.share}
-                    </Button>
-                </div>
+                {inline ? triggerButton : (
+                    <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end' }}>
+                        {triggerButton}
+                    </div>
+                )}
 
                 {/* 自定义模态框 - 使用CSS类确保在MD文件中正常显示 */}
                 <div className="share-modal-overlay">
@@ -255,16 +262,9 @@ export function ShareButton({ walletAddress: propWalletAddress }: ShareButtonPro
         );
     }
 
-    return (
+    return inline ? triggerButton : (
         <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end' }}>
-            <Button
-                variant="outline"
-                className='share-button'
-                onClick={() => setIsOpen(true)}
-            >
-                <Share2 style={{ width: '1rem', height: '1rem' }} />
-                {translations.share}
-            </Button>
+            {triggerButton}
         </div>
     );
 }

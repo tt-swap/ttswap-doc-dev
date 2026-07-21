@@ -12,9 +12,7 @@ TTSWAP is a decentralized token trading platform that enables users to swap toke
 
 ---
 
-import { ShareButton } from '@site/src/components/ShareButton';
 
-<ShareButton />
 
 ## 1. Overview
 
@@ -901,8 +899,8 @@ $$ \Delta b_{\text{net}} (\text{User Actual Receive}) = 8,420.3 - 0.84 = 8,419.4
 
 
 ## Appendix G: Token Fee Detailed Calculation and Distribution Process (Fee Logic)
-<!-- 
-![Alt text](whitepaper_image_en/TOKEN_FEE_COMPUTE_1.png) -->
+
+{/* ![Alt text](whitepaper_image_en/TOKEN_FEE_COMPUTE_1.png) */}
 
 ### 1. Fee Accumulation
 
