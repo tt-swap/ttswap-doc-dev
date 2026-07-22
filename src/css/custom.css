@@ -145,14 +145,26 @@
   opacity: 0.7;
 }
 
-/* Connect Wallet 按钮 */
+/* Connect Wallet / Launch App 按钮 */
 .navbar-wallet-button {
   background: #0fb981;
   border-radius: 8px;
-  padding: 6px 16px;
+  padding: 6px 22px 6px 16px;
   color: #fff !important;
   font-weight: 600;
   margin-left: 8px;
+  margin-right: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 外链图标与按钮右边框留白 */
+.navbar-wallet-button svg,
+.navbar-wallet-button .iconExternalLink {
+  margin-left: 2px;
+  margin-right: 2px;
+  flex-shrink: 0;
 }
 
 .navbar-wallet-button:hover {
